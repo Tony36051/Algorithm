@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class threeSum {
+public class ThreeSum {
     static Stream<Arguments> provider() {
         return Stream.of(
                 Arguments.of(new int[]{-1, 0, 1, 2, -1, -4}, Arrays.asList(Arrays.asList(-1, 0, 1), Arrays.asList(-1, -1, 2)))
@@ -34,7 +34,7 @@ public class threeSum {
             for (int j = i + 1; j < nums.length; j++) {
                 if (j > i+1 && nums[j] == nums[j - 1]) continue; // 离开初始值，也即离开前一位
                 for (int k = nums.length - 1; k >= 0; k++) {
-                    
+
                 }
             }
         }
