@@ -13,6 +13,11 @@ public class MaxAreaOfIsland {
     static Stream<Arguments> provider() {
         return Stream.of(
                 Arguments.of(new int[][]{
+                        {1, 1, 0},
+                        {1, 0, 0},
+                        {0, 1, 1},
+                        {0, 0, 0}}, 3),
+                Arguments.of(new int[][]{
                         {0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
                         {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
                         {0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -32,21 +37,46 @@ public class MaxAreaOfIsland {
     }
 
     public int maxAreaOfIsland(int[][] grid) {
+        int l1 = grid.length; // l1管第一坐标，l2管第二坐标
+        int l2 = grid[0].length;
+        boolean[][] used = new boolean[l1][l2];
 
-
-        return 0;
-    }
-
-    void dfs(int[][] grid, boolean[][] used, int x, int y, int sum) {
-        int yLength = grid.length;
-        int xLength = grid[0].length;
-        int x1 = x - 1 > 0 ? x - 1 : 0;
-        int x2 = x + 1 < xLength - 1 ? x + 1 : xLength - 1;
-        int y1 = y - 1 > 0 ? y - 1 : 0;
-        int y2 = y + 1 < yLength - 1 ? y + 1 : yLength - 1;
-        if (used[x1][y] && used[x2][y] && used[x][y1] && used[x][y2]) {
-
+        int maxSum = 0;
+        for (int i = 0; i < l1; i++) {
+            for (int j = 0; j < l2; j++) {
+                if (used[i][j] || grid[i][j]==0) {
+                    continue;
+                }
+                Integer sum = dfs(grid, used, i, j);
+                maxSum = Math.max(maxSum, sum);
+            }
         }
-
+        return maxSum;
     }
+
+    int dfs(int[][] grid, boolean[][] used, int x, int y) {
+        int l1 = grid.length;
+        int l2 = grid[0].length;
+        if (x < 0 || x >= l1 || y < 0 || y >= l2) {
+            return 0;
+        }
+        if (used[x][y]) {
+            return 0;
+        }
+        if (grid[x][y] == 0) {
+            used[x][y] = true;
+            return 0;
+        }
+        used[x][y] = true;
+        int sum  = 0;
+        if (grid[x][y] == 1) {
+            sum++;
+        }
+        sum += dfs(grid, used, x-1, y);
+        sum += dfs(grid, used, x+1, y);
+        sum += dfs(grid, used, x, y-1);
+        sum += dfs(grid, used, x, y+1);
+        return sum;
+    }
+
 }
