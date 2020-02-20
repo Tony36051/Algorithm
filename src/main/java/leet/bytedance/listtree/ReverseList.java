@@ -13,41 +13,47 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ReverseList {
     static Stream<Arguments> provider() {
         return Stream.of(
-                Arguments.of(ListNode.makeList(new int[]{1, 2, 4}), ListNode.makeList(new int[]{1, 3, 4}),
-                        ListNode.makeList(new int[]{1, 1, 2, 3, 4, 4}))
+                Arguments.of(ListNode.makeList(new int[]{1, 2, 3, 4, 5}), ListNode.makeList(new int[]{5, 4, 3, 2, 1}))
         );
     }
 
     @MethodSource("provider")
     @ParameterizedTest
-    void pTest(ListNode l1, ListNode l2, ListNode output) {
-        assertEquals(mergeTwoLists(l1, l2), output);
+    void pTest(ListNode l1, ListNode output) {
+        assertEquals(reverseListRecursively(l1), output);
     }
 
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
         ListNode sentinel = new ListNode(0);
-        ListNode p =  sentinel;
-        while (l1 != null && l2 != null) {
-            if (l1.val < l2.val) {
-                p.next = l1;
-                l1 = l1.next;
-            } else {
-                p.next = l2;
-                l2 = l2.next;
-            }
-            p = p.next;
-        }
-        while (l1 != null) {
-            p.next = l1;
-            p = p.next;
-            l1 = l1.next;
-        }
-        while (l2 != null) {
-            p.next = l2;
-            p = p.next;
-            l2 = l2.next;
+        sentinel.next = head;
+        ListNode p; // delete p
+        while (head.next != null) {
+            // delete p
+            p = head.next;
+            head.next = p.next; // delete p, connect head to p.next
+            // insert p after sentinel
+            p.next = sentinel.next;
+            sentinel.next = p;
         }
         return sentinel.next;
+    }
+
+
+    ListNode reverseListRecursively(ListNode head) {
+        if (head == null ||head.next == null) {
+            return head;
+        }
+        ListNode newHead = reverseListRecursively(head.next);
+        ListNode rest = newHead;
+        while (rest.next != null) {
+            rest = rest.next;
+        }
+        head.next = null;
+        rest.next = head;
+        return newHead;
     }
 }
 
