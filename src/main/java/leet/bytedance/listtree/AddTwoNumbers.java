@@ -22,23 +22,44 @@ public class AddTwoNumbers {
                 Arguments.of(ListNode.makeList(new int[]{5, 6, 4}), ListNode.makeList(new int[]{0}),
                         ListNode.makeList(new int[]{5, 6, 4})),
                 Arguments.of(ListNode.makeList(new int[]{0}), ListNode.makeList(new int[]{0}),
-                        ListNode.makeList(new int[]{0}))
+                        ListNode.makeList(new int[]{0})),
+                Arguments.of(ListNode.makeList(new int[]{5}), ListNode.makeList(new int[]{5}),
+                        ListNode.makeList(new int[]{0, 1}))
         );
     }
 
     @MethodSource("provider")
     @ParameterizedTest
     void pTest(ListNode l1, ListNode l2, ListNode output) {
-        assertEquals(addTwoNumbers(l1, l2), output);
+        assertEquals(output, addTwoNumbers(l1, l2));
     }
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        int sum = 0;
         int carry = 0;
         ListNode resSentinel = new ListNode(0);
+        ListNode p = resSentinel;
+
         while (l1 != null && l2 != null) {
-            
+            sum = l1.val + l2.val + carry;
+            carry = sum / 10;
+            p.next = new ListNode(sum % 10);
+            p = p.next;
+            l1 = l1.next;
+            l2 = l2.next;
         }
-        return null;
+        ListNode rest = l1 != null ? l1 : l2;
+        while (rest != null) {
+            sum = rest.val + carry;
+            carry = sum / 10;
+            p.next = new ListNode(sum % 10);
+            p = p.next;
+            rest = rest.next;
+        }
+        if (carry > 0) {
+            p.next = new ListNode(carry);
+        }
+        return resSentinel.next;
     }
 }
 
