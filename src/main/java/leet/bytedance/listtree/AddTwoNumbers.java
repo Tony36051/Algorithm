@@ -30,8 +30,8 @@ public class AddTwoNumbers {
 
     @MethodSource("provider")
     @ParameterizedTest
-    void pTest(ListNode l1, ListNode l2, ListNode output) {
-        assertEquals(output, addTwoNumbers(l1, l2));
+    void pTest(ListNode l1, ListNode l2, ListNode expected) {
+        assertEquals(expected, addTwoNumbers(l1, l2));
     }
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {

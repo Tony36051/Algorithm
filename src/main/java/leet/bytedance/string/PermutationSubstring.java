@@ -21,7 +21,7 @@ public class PermutationSubstring {
     @MethodSource("provider")
     @ParameterizedTest
     void pTest(String s1, String s2, boolean included) {
-        assertEquals(checkInclusion(s1, s2), included);
+        assertEquals(included, checkInclusion(s1, s2));
     }
 
     public boolean checkInclusion(String s1, String s2) {

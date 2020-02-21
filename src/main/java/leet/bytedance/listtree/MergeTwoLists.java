@@ -21,8 +21,8 @@ public class MergeTwoLists {
 
     @MethodSource("provider")
     @ParameterizedTest
-    void pTest(leet.common.ListNode l1, leet.common.ListNode l2, leet.common.ListNode output) {
-        assertEquals(mergeTwoLists(l1, l2), output);
+    void pTest(leet.common.ListNode l1, leet.common.ListNode l2, leet.common.ListNode expected) {
+        assertEquals(expected, mergeTwoLists(l1, l2));
     }
 
     public leet.common.ListNode mergeTwoLists(leet.common.ListNode l1, leet.common.ListNode l2) {

@@ -36,8 +36,8 @@ public class LongestCommonPrefixString {
 
     @MethodSource("provider")
     @ParameterizedTest
-    void pTest(String[] input, String output) {
-        assertEquals(longestCommonPrefix(input), output);
+    void pTest(String[] input, String expected) {
+        assertEquals(expected,longestCommonPrefix(input) );
     }
 
 }

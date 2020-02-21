@@ -19,8 +19,8 @@ public class ReverseList {
 
     @MethodSource("provider")
     @ParameterizedTest
-    void pTest(ListNode l1, ListNode output) {
-        assertEquals(reverseListRecursively(l1), output);
+    void pTest(ListNode l1, ListNode expected) {
+        assertEquals(expected, reverseList(l1));
     }
 
     public ListNode reverseList(ListNode head) {
