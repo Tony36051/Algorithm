@@ -1,6 +1,4 @@
-javaCode
+# Algorithm
 ========
-
-practise code
-
-for learning
+## details
+1. MergeSort in List: how to get Middle pointer
