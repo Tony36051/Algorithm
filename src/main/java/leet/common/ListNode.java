@@ -1,5 +1,8 @@
 package leet.common;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Definition for singly-linked list.
  */
@@ -24,32 +27,49 @@ public class ListNode {
         return sentinel.next;
     }
 
+    public static ListNode makeLinkedListWithCycle(int[] nums, int pos) {
+        if (null == nums || nums.length == 0) {
+            return null;
+        }
+        ListNode head = makeList(nums);
+        if (pos >= 0) {
+            ListNode cycleStart = null;
+
+            ListNode p = head;
+            while (p.next != null) {
+                if (pos-- == 0) {
+                    cycleStart = p;
+                }
+                p = p.next;
+            }
+            p.next = cycleStart;
+        }
+        return head;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-//        ListNode p = this;
-//        ListNode q = (ListNode) o;
-//        while (p != null && q != null) {
-//            if (p.val != q.val) {
-//                return false;
-//            }
-//            p = p.next;
-//            q = q.next;
-//        }
-//        if (p != null || q != null) {
-//            return false;
-//        }
         return this.toString().equals(o.toString());
     }
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
         ListNode p = this;
+        Set<ListNode> refSef = new HashSet<>();
         while (p!=null) {
+            if (refSef.contains(p.next)) {
+                sb.append(p.val + " ");
+                break;
+            }else{
+                refSef.add(p);
+            }
             sb.append(p.val + " ");
             p = p.next;
         }
         return sb.toString();
     }
+
+
 }
