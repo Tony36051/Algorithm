@@ -14,9 +14,9 @@ public class MmergeKLists {
     static Stream<Arguments> provider() {
         return Stream.of(
                 Arguments.of(new ListNode[]{
-                        ListNode.makeList(new int[]{}),
-                        ListNode.makeList(new int[]{}),
-//                        ListNode.makeList(new int[]{2, 6})
+                        ListNode.makeList(new int[]{1, 4, 5}),
+                        ListNode.makeList(new int[]{1, 3, 4}),
+                        ListNode.makeList(new int[]{2, 6})
                 }, ListNode.makeList(new int[]{1, 1, 2, 3, 4, 4, 5, 6}))
         );
     }
@@ -29,7 +29,7 @@ public class MmergeKLists {
 
     public ListNode mergeKLists(ListNode[] lists) {
         if (lists == null) return null;
-        if(lists.length==1) return lists[0];
+        if (lists.length == 1) return lists[0];
         int k = lists.length;
         MinPQ minPQ = new MinPQ(k);
         for (int i = 0; i < k; i++) {
@@ -43,9 +43,6 @@ public class MmergeKLists {
             p.next = minListNode;
             p = p.next;
             minPQ.insert(minListNode.next);
-//            if (minListNode.next != null) {
-//                minPQ.insert(minListNode.next);
-//            }
         }
         return sentinel.next;
     }
@@ -53,13 +50,14 @@ public class MmergeKLists {
     class MinPQ {
         ListNode[] pq;
         int n = 0;
+
         public MinPQ(int maxN) {
             pq = new ListNode[maxN + 1];
 
         }
 
         public void insert(ListNode v) {
-            if(v==null) return;
+            if (v == null) return;
             pq[++n] = v;
             swim(n);
         }
