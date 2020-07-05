@@ -12,13 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DetectCycle {
     static Stream<Arguments> provider() {
+        ListNode l1 = ListNode.makeLinkedListWithCycle(new int[]{3,2,0,-4},1);
+        ListNode l2 = l1.next;
         return Stream.of(
-                Arguments.of(ListNode.makeLinkedListWithCycle(new int[]{3,2,0,-4}, 1),
-                        ListNode.makeLinkedListWithCycle(new int[]{2,0,-4}, 0)),
-                Arguments.of(ListNode.makeLinkedListWithCycle(new int[]{1, 2}, 0),
-                        ListNode.makeLinkedListWithCycle(new int[]{1, 2}, 0)),
-                Arguments.of(ListNode.makeLinkedListWithCycle(new int[]{1}, -1),
-                        null)
+                Arguments.of(l1,l2)
         );
     }
 
