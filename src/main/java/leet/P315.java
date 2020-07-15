@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class P315 {
     static Stream<Arguments> provider() {
         return Stream.of(
-//                Arguments.of(new int[]{5, 2, 6, 1}, Arrays.asList(new Integer[]{2, 1, 1, 0})),
+                Arguments.of(new int[]{5, 2, 6, 1}, Arrays.asList(new Integer[]{2, 1, 1, 0})),
                 Arguments.of(new int[]{26, 78, 27, 100, 33, 67, 90, 23, 66, 5, 38, 7, 35, 23, 52, 22, 83, 51, 98, 69, 81, 32, 78, 28, 94, 13, 2, 97, 3, 76, 99, 51, 9, 21, 84, 66, 65, 36, 100, 41},
                         Arrays.asList(new Integer[]{10, 27, 10, 35, 12, 22, 28, 8, 19, 2, 12, 2, 9, 6, 12, 5, 17, 9, 19, 12, 14, 6, 12, 5, 12, 3, 0, 10, 0, 7, 8, 4, 0, 0, 4, 3, 2, 0, 1, 0}))
         );
@@ -34,9 +34,8 @@ public class P315 {
         List<Integer> sorted = new ArrayList<>();
         List<Integer> ans = new ArrayList<>();
         for (int i = nums.length - 1; i >= 0; i--) {
-            sorted.add(nums[i]);
-            Collections.sort(sorted);
             int pos = firstAppearBinarySearch((ArrayList<Integer>) sorted, nums[i]);
+            sorted.add(pos, nums[i]);
             ans.add(pos);
         }
         Collections.reverse(ans);
@@ -56,4 +55,6 @@ public class P315 {
         }
         return l;
     }
+
+
 }
